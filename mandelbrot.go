@@ -18,6 +18,8 @@ func Mandelbrot(w, h, i int, z float32, seed int64) *image.RGBA {
 	// if seed is set to 0 use current time to seed PRNG
 	if seed == 0 {
 		rand.Seed(time.Now().UTC().UnixNano())
+	} else {
+		rand.Seed(seed)
 	}
 
 	// make a butt load of colors!
