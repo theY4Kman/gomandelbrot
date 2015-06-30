@@ -1,11 +1,9 @@
-package main
+package gomandelbrot
 
 import (
 	"image"
 	"image/color"
-	"image/png"
 	"math/rand"
-	"os"
 	"runtime"
 	"sync"
 )
@@ -14,7 +12,7 @@ type tile struct {
 	x1, x2, y1, y2 int
 }
 
-func mandelbrot(w, h, i int, z float32, seed int64) *image.RGBA {
+func Mandelbrot(w, h, i int, z float32, seed int64) *image.RGBA {
 
 	colors := make([]color.RGBA, i)
 	rand.Seed(seed)
@@ -90,13 +88,4 @@ func setColor(m *image.RGBA, colors []color.RGBA, px, py, maxi int, zoom float32
 	}
 
 	m.Set(px, py, colors[i-1])
-}
-
-func main() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
-	m := mandelbrot(800, 800, 1000, 1.0, 50)
-
-	w, _ := os.Create("mandelbrot.png")
-	defer w.Close()
-	png.Encode(w, m)
 }
