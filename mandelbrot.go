@@ -6,16 +6,22 @@ import (
 	"math/rand"
 	"runtime"
 	"sync"
+	"time"
 )
 
 type tile struct {
 	x1, x2, y1, y2 int
 }
 
+// return a imange containing a rendered mandelbrot set
 func Mandelbrot(w, h, i int, z float32, seed int64) *image.RGBA {
+	// if seed is set to 0 use current time to seed PRNG
+	if seed == 0 {
+		rand.Seed(time.Now().UTC().UnixNano())
+	}
 
+	// make a butt load of colors!
 	colors := make([]color.RGBA, i)
-	rand.Seed(seed)
 	for index := range colors {
 		colors[index] = randomColor()
 	}
